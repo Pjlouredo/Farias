@@ -106,6 +106,22 @@ header {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
+.info-btn {
+    display: block;
+    margin: 10px auto;
+    padding: 8px 15px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.info-btn:hover {
+    background-color: #218838;
+}
+
 /* Títulos e parágrafos */
 h2 {
     text-align: center;
@@ -122,7 +138,7 @@ p {
 .modal {
     display: none;
     position: fixed;
-    z-index: 1000;
+    z-index: 1100;
     left: 0;
     top: 0;
     width: 100%;
@@ -132,13 +148,14 @@ p {
 }
 
 .modal-content {
-    background-color: white;
+    background-color: #fff;
     margin: 10% auto;
     padding: 20px;
     border: 1px solid #888;
     width: 80%;
     max-width: 600px;
     border-radius: 10px;
+    text-align: center;
 }
 
 .close {
@@ -149,13 +166,19 @@ p {
     cursor: pointer;
 }
 
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+}
+
 /* Footer */
 .site-footer {
     color: white;
 }
 
-.site-footer h4, .site-footer p {
-    text-align: center;
+.site-footer h4,
+.site-footer p {
     font-size: 15px;
 }
 
