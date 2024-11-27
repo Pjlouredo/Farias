@@ -82,3 +82,13 @@ window.addEventListener('click', (event) => {
     video.currentTime = 0;
   }
 });
+
+function copyToClipboard(text) {
+  navigator.clipboard.writeText(text)
+    .then(() => {
+      alert("E-mail copiado para a área de transferência!");
+    })
+    .catch(err => {
+      console.error("Erro ao copiar: ", err);
+    });
+}
