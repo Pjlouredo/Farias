@@ -1,78 +1,84 @@
-// Navegação suave para âncoras
-document.querySelectorAll(".link-menu").forEach((anchor) => {
-  anchor.addEventListener("click", function (e) {
-    if (this.getAttribute("href").startsWith("#")) {
-      e.preventDefault();
-      const targetId = this.getAttribute("href").slice(1);
-      const targetElement = document.getElementById(targetId);
-      if (targetElement) {
-        targetElement.scrollIntoView({
-          behavior: "smooth",
-        });
-      }
+function toggleMenu() {
+    const nav = document.querySelector('nav');
+    const overlay = document.querySelector('.overlay');
+    nav.classList.toggle('active');
+    if (nav.classList.contains('active')) {
+      overlay.style.display = 'block';
+    } else {
+      overlay.style.display = 'none';
     }
-  });
-});
-
-// Controle do modal de vídeo
-const videoModal = document.getElementById("videoModal");
-const linkVideo = document.getElementById("sobre-nos-link");
-const closeVideoModal = document.querySelector("#videoModal .close");
-
-// Abrir o modal de vídeo
-linkVideo.onclick = function (e) {
-  e.preventDefault();
-  videoModal.style.display = "block";
-  playVideo();
-};
-
-// Fechar o modal de vídeo
-closeVideoModal.onclick = function () {
-  videoModal.style.display = "none";
-  pauseVideo();
-};
-
-// Fechar modal ao clicar fora dele
-window.onclick = function (event) {
-  if (event.target === videoModal) {
-    videoModal.style.display = "none";
-    pauseVideo();
   }
-};
 
-// Funções para controlar o vídeo
-function playVideo() {
-  const video = videoModal.querySelector("video");
-  if (video) video.play();
-}
-
-function pauseVideo() {
-  const video = videoModal.querySelector("video");
-  if (video) video.pause();
-}
-
-// Controle do modal de descrição dos produtos
-const productModal = document.getElementById("productModal");
-const modalDescription = document.getElementById("modal-description");
-const closeProductModal = document.querySelector("#productModal .close");
-
-// Abrir o modal com descrição de produto
-document.querySelectorAll(".info-btn").forEach((button) => {
-  button.addEventListener("click", () => {
-    const description = button.getAttribute("data-info");
-    modalDescription.innerHTML = description;
-    productModal.style.display = "block";
+  document.querySelector('.overlay').addEventListener('click', () => {
+    toggleMenu();
   });
+
+  document.querySelectorAll('nav a').forEach(link => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      const targetId = link.getAttribute('href');
+      const targetElement = document.querySelector(targetId);
+      targetElement.scrollIntoView({ behavior: 'smooth' });
+      toggleMenu();
+    });
+  });
+
+  function openModal(title, description) {
+    const modal = document.getElementById('productModal');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalDescription = document.getElementById('modalDescription');
+    
+    modalTitle.textContent = title;
+    modalDescription.textContent = description;
+    modal.style.display = 'block';
+  }
+
+  function closeModal() {
+    const modal = document.getElementById('productModal');
+    modal.style.display = 'none';
+  }
+
+  window.onclick = function(event) {
+    const modal = document.getElementById('productModal');
+    if (event.target == modal) {
+      modal.style.display = 'none';
+    }
+  }
+
+  const cards = document.querySelectorAll('.product-card');
+  window.addEventListener('scroll', () => {
+    cards.forEach(card => {
+      const cardTop = card.getBoundingClientRect().top;
+      if (cardTop < window.innerHeight) {
+        card.style.opacity = '1';
+        card.style.transform = 'translateY(0)';
+      }
+    });
+  });
+  
+  const modal = document.getElementById('videoModal');
+const video = document.getElementById('video');
+const closeBtn = document.querySelector('.modal .close-btn'); // Seleciona o botão de fechar dentro do modal
+
+// Ao clicar no link "Sobre Nós", abre o modal e começa o vídeo
+sobreNosLink.addEventListener('click', (event) => {
+  event.preventDefault();
+  modal.style.display = 'block';
+  video.play();
 });
 
-// Fechar o modal de produtos
-closeProductModal.addEventListener("click", () => {
-  productModal.style.display = "none";
+// Quando clicar no botão de fechar, o modal será fechado
+closeBtn.addEventListener('click', () => {
+  modal.style.display = 'none';
+  video.pause();
+  video.currentTime = 0;
 });
 
-// Fechar modal de produtos ao clicar fora
-window.addEventListener("click", (event) => {
-  if (event.target === productModal) {
-    productModal.style.display = "none";
+// Quando clicar fora do vídeo, o modal será fechado
+window.addEventListener('click', (event) => {
+  if (event.target === modal) {
+    modal.style.display = 'none';
+    video.pause();
+    video.currentTime = 0;
   }
 });
