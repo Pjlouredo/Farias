@@ -173,10 +173,13 @@ video {
   }
 
   .product-image {
-    height: 400px;
-    background-size: cover;
-    background-position: center;
-  }
+    height: auto; /* Permite ajuste automático */
+    width: 100%; /* Faz com que a imagem ocupe toda a largura do container */
+    aspect-ratio: 4/3; /* Mantém a proporção da imagem */
+    object-fit: cover; /* Garante que a imagem não seja distorcida */
+    border-radius: 10px; /* Para manter bordas arredondadas */
+    background-color: #f0f0f0; /* Define uma cor de fundo caso a imagem não carregue */
+}
 
   .product-info {
     padding: 1rem;
